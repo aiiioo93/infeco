@@ -5,9 +5,10 @@ class Locataire(models.Model):
     adresse = models.CharField(max_length=200)
     numero_telephone = models.CharField(max_length=20)
     adresse_email = models.EmailField()
-    
+
     def __str__(self):
         return self.nom
+
 
 class Appartement(models.Model):
     adresse = models.CharField(max_length=200)
@@ -21,6 +22,14 @@ class Appartement(models.Model):
 
     def __str__(self):
         return self.adresse
+    
+class AffectationAppartement(models.Model):
+    appartement = models.ForeignKey(Appartement, on_delete=models.CASCADE)
+    locataire = models.ForeignKey(Locataire, on_delete=models.CASCADE)
+    date_debut = models.DateField()
+    date_fin = models.DateField(blank=True, null=True)  
+
+
 
 class EtatDesLieux(models.Model):
     appartement = models.ForeignKey(Appartement, on_delete=models.CASCADE)
